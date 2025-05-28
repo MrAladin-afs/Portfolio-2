@@ -2,45 +2,40 @@
 import { Image } from "astro:assets";
 import svgl from "../../public/svgl.png";
 import stockin from "../../public/stockin.png";
-import moviesfordevs from "../../public/moviesfordevs.png";
 import tron from "../../public/tron.png";
 
 interface Project {
   title: string;
-  image: ImageMetadata;
-  link: string;
+  image: ImageMetadata | string;
+  link?: string;
   preview: string;
   status: string;
 }
 
 const projects: Project[] = [
   {
-    title: "MoviesForDevs",
-    image: moviesfordevs as ImageMetadata,
-    link: "https://github.com/gothsec/MoviesForDevs",
-    preview: "https://movies-for-devs.vercel.app",
-    status: "On Development",
+    title: "Xenon V3",
+    image: "https://files.fivemerr.com/images/9d997e87-4721-4fb9-88a6-b387f163ed9f.jpg",
+    preview: "https://www.youtube.com/watch?v=jWyqqjiwVrI&t=2s",
+    status: "Ready to play",
   },
   {
-    title: "StockIn",
-    image: stockin as ImageMetadata,
-    link: "https://github.com/gothsec/stockin-demo",
-    preview: "https://stockin-demo.vercel.app",
-    status: "On Development",
+    title: "Xenon V4",
+    image: "https://files.fivemerr.com/images/e1abe531-0e56-4eab-9c5c-2eb07eeb2708.jpg",
+    preview: "https://www.youtube.com/watch?v=gG6Z4fYTSKg",
+    status: "Ready to play",
   },
   {
-    title: "Svgl.app",
-    image: svgl as ImageMetadata,
-    link: "https://github.com/pheralb/svgl",
-    preview: "https://svgl.app",
-    status: "Contributor",
+    title: "Krypton Website",
+    image: "https://files.fivemerr.com/images/238476b4-2d05-4859-b5d0-fcc14bd8a989.png",
+    preview: "https://kryptonnscripts.store/",
+    status: "Created by me",
   },
   {
-    title: "Tron Legacy Web",
-    image: tron as ImageMetadata,
-    link: "https://github.com/Gothsec/Tron-Legacy-web",
-    preview: "https://tron-legacy-web.vercel.app/",
-    status: "Template (not official)",
+    title: "Krypton Docs",
+    image: "https://files.fivemerr.com/images/937c5f17-5b09-46a7-9ee2-06db67766b67.png",
+    preview: "https://docs.kryptonnscripts.store/",
+    status: "Created by me",
   },
 ];
 ---
@@ -64,11 +59,19 @@ const projects: Project[] = [
               class="block"
             >
               <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+                {typeof project.image === 'string' ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                )}
               </div>
               <div class="flex items-center px-3">
                 <div class="flex-grow">
@@ -78,21 +81,23 @@ const projects: Project[] = [
                   </span>
                 </div>
                 <div class="flex gap-2 ml-auto">
-                  <a
-                    target="_blank"
-                    href={project.link}
-                    aria-label="GitHub"
-                    class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="size-7"
+                  {project.link && (
+                    <a
+                      target="_blank"
+                      href={project.link}
+                      aria-label="GitHub"
+                      class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
                     >
-                      <path d="M24 12L18.3431 17.6569L16.9289 16.2426L21.1716 12L16.9289 7.75736L18.3431 6.34315L24 12ZM2.82843 12L7.07107 16.2426L5.65685 17.6569L0 12L5.65685 6.34315L7.07107 7.75736L2.82843 12ZM9.78845 21H7.66009L14.2116 3H16.3399L9.78845 21Z" />
-                    </svg>
-                  </a>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="size-7"
+                      >
+                        <path d="M24 12L18.3431 17.6569L16.9289 16.2426L21.1716 12L16.9289 7.75736L18.3431 6.34315L24 12ZM2.82843 12L7.07107 16.2426L5.65685 17.6569L0 12L5.65685 6.34315L7.07107 7.75736L2.82843 12ZM9.78845 21H7.66009L14.2116 3H16.3399L9.78845 21Z" />
+                      </svg>
+                    </a>
+                  )}
                   <a
                     target="_blank"
                     href={project.preview}
@@ -117,7 +122,7 @@ const projects: Project[] = [
     </div>
     <a
       target="_blank"
-      href="https://github.com/Gothsec?tab=repositories"
+      href="https://github.com/MrAladin-afs"
       aria-label="GitHub"
       class="w-full flex items-center justify-center gap-2 mt-9 text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-[var(--white-icon-tr)] p-3 rounded-full bg-[#1414149c] hover:bg-[var(--white-icon-tr)] hover:scale-105"
     >
