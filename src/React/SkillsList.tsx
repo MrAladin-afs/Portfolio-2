@@ -50,7 +50,7 @@ const SkillsList = () => {
     "Game Development": [
       "Multiplayer Modification And Development",
       "3rd party Multiplayer Mods : FIVEM,SA:MP,RAGEMP",
-      "Game Development : Unity, Unreal Engine",
+      "Game Development :  Unreal Engine",
     ],
   };
 
