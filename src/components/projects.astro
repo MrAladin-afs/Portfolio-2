@@ -1,12 +1,7 @@
 ---
-import { Image } from "astro:assets";
-import svgl from "../../public/svgl.png";
-import stockin from "../../public/stockin.png";
-import tron from "../../public/tron.png";
-
 interface Project {
   title: string;
-  image: ImageMetadata | string;
+  image: string;
   link?: string;
   preview: string;
   status: string;
@@ -15,26 +10,32 @@ interface Project {
 const projects: Project[] = [
   {
     title: "Xenon V3",
-    image: "https://files.fivemerr.com/images/9d997e87-4721-4fb9-88a6-b387f163ed9f.jpg",
+    image: "https://img.youtube.com/vi/jWyqqjiwVrI/hqdefault.jpg",
     preview: "https://www.youtube.com/watch?v=jWyqqjiwVrI&t=2s",
     status: "Ready to play",
   },
   {
     title: "Xenon V4",
-    image: "https://files.fivemerr.com/images/e1abe531-0e56-4eab-9c5c-2eb07eeb2708.jpg",
+    image: "https://img.youtube.com/vi/gG6Z4fYTSKg/hqdefault.jpg",
     preview: "https://www.youtube.com/watch?v=gG6Z4fYTSKg",
     status: "Ready to play",
   },
   {
     title: "Krypton Website",
-    image: "https://files.fivemerr.com/images/238476b4-2d05-4859-b5d0-fcc14bd8a989.png",
+    image: "/krypton-website.png",
     preview: "https://services.kryptongame.com/",
     status: "Created by me",
   },
   {
     title: "Krypton Docs",
-    image: "https://files.fivemerr.com/images/937c5f17-5b09-46a7-9ee2-06db67766b67.png",
+    image: "/krypton-docs.png",
     preview: "https://docs.kryptongame.com/",
+    status: "Created by me",
+  },
+  {
+    title: "MrZomBie World",
+    image: "/mr-zombie-world.png",
+    preview: "https://www.mrzombieworld.com/",
     status: "Created by me",
   },
 ];
@@ -50,8 +51,15 @@ const projects: Project[] = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
-        projects.map((project) => (
-          <div class="group">
+        projects.map((project, index) => (
+          <div
+            class:list={[
+              "group",
+              projects.length % 2 === 1 &&
+                index === projects.length - 1 &&
+                "md:col-span-2 md:mx-auto md:w-[calc((100%-2rem)/2)]",
+            ]}
+          >
             <a
               href={project.preview}
               target="_blank"
@@ -59,19 +67,11 @@ const projects: Project[] = [
               class="block"
             >
               <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4">
-                {typeof project.image === 'string' ? (
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                ) : (
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                )}
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105 md:h-72"
+                />
               </div>
               <div class="flex items-center px-3">
                 <div class="flex-grow">
